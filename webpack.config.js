@@ -1,4 +1,7 @@
 var webpack = require('webpack');
+
+
+
 module.exports = {
   entry : [
   'script!jquery/dist/jquery.min.js',
@@ -12,7 +15,13 @@ module.exports = {
     new webpack.ProvidePlugin({
       '$' : 'jquery',
       'jQuery' : 'jquery'
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin()    
   ],
   output : {
     path : __dirname,
@@ -28,8 +37,8 @@ module.exports = {
       Examples : 'app/components/Examples.jsx',
       WeatherForm : 'app/components/WeatherForm.jsx',
       WeatherMsg : 'app/components/WeatherMsg.jsx',
-      openWeatherMap : 'app/api/openWeatherMap.jsx'
-
+      openWeatherMap : 'app/api/openWeatherMap.jsx',
+      ErrorModal : 'app/components/ErrorModal.jsx'
     },
     extensions : ['','.js','.jsx']
   },
